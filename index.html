@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FaceCheck AI — Your Personal Beauty Analyst</title>
+    <meta name="description"
+        content="AI-powered face analysis tool that detects your face shape, skin tone, structure and recommends the perfect makeup looks tailored just for you." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ── NAVBAR ── -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <div class="nav-logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">FaceCheck <em>AI</em></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#analyzer">Analyze</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#results-section">Results</a></li>
+            </ul>
+            <button class="nav-cta" onclick="scrollToAnalyzer()">Start Analysis</button>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section id="hero">
+        <div class="hero-bg-orbs">
+            <div class="orb orb1"></div>
+            <div class="orb orb2"></div>
+            <div class="orb orb3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">✦ AI-Powered Beauty Analysis</div>
+                <h1 class="hero-title">
+                    Discover Your<br />
+                    <span class="gradient-text">Perfect Face</span><br />
+                    <em>Profile</em>
+                </h1>
+                <p class="hero-subtitle">
+                    Upload a photo or use your camera. Our AI instantly analyzes your
+                    face shape, structure, skin tone and creates your personalized
+                    makeup recommendations.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="scrollToAnalyzer()">
+                        <span>✦</span> Analyze My Face
+                    </button>
+                    <button class="btn-secondary"
+                        onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+                        How It Works
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-n">7+</span><span class="stat-l">Face Shapes</span></div>
+                    <div class="stat-div"></div>
+                    <div class="stat"><span class="stat-n">50+</span><span class="stat-l">Makeup Looks</span></div>
+                    <div class="stat-div"></div>
+                    <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Private & Free</span></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-img-frame">
+                    <img src="assets/hero.png" alt="AI Face Analysis" class="hero-img" />
+                    <div class="hero-img-glow"></div>
+                    <div class="floating-chip chip1">👁 Eye Shape Detected</div>
+                    <div class="floating-chip chip2">💄 Foundation Match</div>
+                    <div class="floating-chip chip3">✦ Oval Face Shape</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>Scroll to begin</span>
+            <div class="scroll-arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ── -->
+    <section id="how-it-works">
+        <div class="section-inner">
+            <div class="section-label">The Process</div>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Three simple steps to discover your perfect beauty profile</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">01</div>
+                    <div class="step-icon">📸</div>
+                    <h3>Capture or Upload</h3>
+                    <p>Use your live camera or upload a clear front-facing photo. Ensure good lighting for the most
+                        accurate analysis.</p>
+                </div>
+                <div class="step-connector">—</div>
+                <div class="step-card">
+                    <div class="step-num">02</div>
+                    <div class="step-icon">🧠</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our algorithm measures facial proportions, detects your face shape, analyzes skin undertones and
+                        overall structure.</p>
+                </div>
+                <div class="step-connector">—</div>
+                <div class="step-card">
+                    <div class="step-num">03</div>
+                    <div class="step-icon">💄</div>
+                    <h3>Get Recommendations</h3>
+                    <p>Receive personalized makeup tips, color palettes, foundation shades and styling advice tailored
+                        to your unique features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── ANALYZER ── -->
+    <section id="analyzer">
+        <div class="section-inner">
+            <div class="section-label">Face Analyzer</div>
+            <h2 class="section-title">Analyze Your Face</h2>
+            <p class="section-subtitle">Choose how you'd like to get started</p>
+
+            <div class="analyzer-container">
+                <!-- Source Selector -->
+                <div class="source-tabs">
+                    <button class="source-tab active" id="tab-camera" onclick="switchTab('camera')">
+                        <span>📷</span> Use Camera
+                    </button>
+                    <button class="source-tab" id="tab-upload" onclick="switchTab('upload')">
+                        <span>🖼</span> Upload Photo
+                    </button>
+                </div>
+
+                <!-- Camera Panel -->
+                <div class="panel" id="panel-camera">
+                    <div class="camera-wrapper">
+                        <video id="camera-feed" autoplay playsinline muted></video>
+                        <canvas id="camera-overlay"></canvas>
+                        <div class="camera-frame-border"></div>
+                        <div class="camera-guide-text">Center your face in the frame</div>
+                        <div class="camera-scan-line" id="scan-line"></div>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="btn-primary" id="start-camera-btn" onclick="startCamera()">
+                            <span>📷</span> Start Camera
+                        </button>
+                        <button class="btn-primary hidden" id="capture-btn" onclick="capturePhoto()">
+                            <span>⬤</span> Capture & Analyze
+                        </button>
+                        <button class="btn-outline hidden" id="flip-btn" onclick="flipCamera()">
+                            ↻ Flip
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Upload Panel -->
+                <div class="panel hidden" id="panel-upload">
+                    <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()"
+                        ondragover="handleDragOver(event)" ondrop="handleDrop(event)"
+                        ondragleave="handleDragLeave(event)">
+                        <div class="upload-icon">🖼</div>
+                        <p class="upload-title">Drop your photo here</p>
+                        <p class="upload-sub">or click to browse — JPG, PNG, WEBP supported</p>
+                        <button class="btn-outline upload-btn-inner">Browse Files</button>
+                        <input type="file" id="file-input" accept="image/*" onchange="handleFileUpload(event)" hidden />
+                    </div>
+                    <div class="upload-preview hidden" id="upload-preview">
+                        <img id="preview-img" alt="Uploaded face" />
+                        <div class="preview-controls">
+                            <button class="btn-primary" id="analyze-upload-btn" onclick="analyzeUploadedImage()">
+                                ✦ Analyze This Photo
+                            </button>
+                            <button class="btn-outline" onclick="resetUpload()">Choose Another</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden canvas for processing -->
+                <canvas id="processing-canvas" style="display:none;"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── LOADING OVERLAY ── -->
+    <div id="loading-overlay" class="hidden">
+        <div class="loading-card">
+            <div class="loading-face-anim">
+                <div class="lf-pulse"></div>
+                <div class="lf-scan"></div>
+                <div class="lf-dots">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            <h3 id="loading-title">Analyzing Your Face</h3>
+            <p id="loading-step">Detecting facial landmarks…</p>
+            <div class="loading-bar-wrap">
+                <div class="loading-bar" id="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── RESULTS ── -->
+    <section id="results-section" class="hidden">
+        <div class="section-inner">
+            <div class="section-label">Your Analysis</div>
+            <h2 class="section-title">Your Personal Beauty Profile</h2>
+            <p class="section-subtitle" id="results-greeting">Here's what we found about your unique features</p>
+
+            <!-- Photo + Key Stats -->
+            <div class="results-hero">
+                <div class="results-photo-wrap">
+                    <img id="result-photo" alt="Analyzed face" />
+                    <div class="result-photo-badge" id="face-shape-badge">Oval</div>
+                </div>
+                <div class="results-key-stats">
+                    <div class="key-stat-card" id="stat-shape">
+                        <div class="ksc-icon">◇</div>
+                        <div class="ksc-content">
+                            <div class="ksc-label">Face Shape</div>
+                            <div class="ksc-value" id="ksc-shape">—</div>
+                        </div>
+                    </div>
+                    <div class="key-stat-card" id="stat-size">
+                        <div class="ksc-icon">⬡</div>
+                        <div class="ksc-content">
+                            <div class="ksc-label">Face Size</div>
+                            <div class="ksc-value" id="ksc-size">—</div>
+                        </div>
+                    </div>
+                    <div class="key-stat-card" id="stat-undertone">
+                        <div class="ksc-icon">◉</div>
+                        <div class="ksc-content">
+                            <div class="ksc-label">Skin Undertone</div>
+                            <div class="ksc-value" id="ksc-undertone">—</div>
+                        </div>
+                    </div>
+                    <div class="key-stat-card" id="stat-structure">
+                        <div class="ksc-icon">△</div>
+                        <div class="ksc-content">
+                            <div class="ksc-label">Face Structure</div>
+                            <div class="ksc-value" id="ksc-structure">—</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs for Result Categories -->
+            <div class="result-tabs">
+                <button class="result-tab active" onclick="showResultTab('shape')">Face Profile</button>
+                <button class="result-tab" onclick="showResultTab('colors')">Colors</button>
+                <button class="result-tab" onclick="showResultTab('makeup')">Makeup</button>
+                <button class="result-tab" onclick="showResultTab('tips')">Pro Tips</button>
+                <button class="result-tab" onclick="showResultTab('style')">✦ Best Style</button>
+            </div>
+
+            <!-- Shape Tab -->
+            <div class="result-panel" id="rtab-shape">
+                <div class="result-grid-2">
+                    <div class="result-card">
+                        <h3 class="rc-title">✦ Face Shape: <span id="res-shape-name">Oval</span></h3>
+                        <p class="rc-body" id="res-shape-desc">—</p>
+                        <div class="shape-features" id="shape-features"></div>
+                    </div>
+                    <div class="result-card">
+                        <h3 class="rc-title">📐 Facial Proportions</h3>
+                        <div class="proportion-bars" id="proportion-bars"></div>
+                    </div>
+                </div>
+                <div class="result-card wide-card">
+                    <h3 class="rc-title">🔬 Detailed Structure Analysis</h3>
+                    <div class="struct-grid" id="struct-grid"></div>
+                </div>
+            </div>
+
+            <!-- Colors Tab -->
+            <div class="result-panel hidden" id="rtab-colors">
+                <div class="result-card">
+                    <h3 class="rc-title">🎨 Your Best Color Palette</h3>
+                    <p class="rc-body" id="color-intro">Colors that beautifully complement your skin tone:</p>
+                    <div class="color-swatches" id="color-swatches"></div>
+                </div>
+                <div class="result-grid-2">
+                    <div class="result-card">
+                        <h3 class="rc-title">✅ Colors to Embrace</h3>
+                        <div class="color-list" id="colors-to-wear"></div>
+                    </div>
+                    <div class="result-card">
+                        <h3 class="rc-title">⚠️ Colors to Avoid</h3>
+                        <div class="color-list avoid" id="colors-to-avoid"></div>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <h3 class="rc-title">💎 Foundation & Concealer Shades</h3>
+                    <div class="foundation-shades" id="foundation-shades"></div>
+                </div>
+            </div>
+
+            <!-- Makeup Tab -->
+            <div class="result-panel hidden" id="rtab-makeup">
+                <div class="result-grid-3">
+                    <div class="result-card makeup-card" id="mc-foundation">
+                        <div class="mc-emoji">🏺</div>
+                        <h3>Foundation</h3>
+                        <p id="mc-foundation-text">—</p>
+                    </div>
+                    <div class="result-card makeup-card" id="mc-blush">
+                        <div class="mc-emoji">🌸</div>
+                        <h3>Blush</h3>
+                        <p id="mc-blush-text">—</p>
+                    </div>
+                    <div class="result-card makeup-card" id="mc-contour">
+                        <div class="mc-emoji">✏️</div>
+                        <h3>Contour & Highlight</h3>
+                        <p id="mc-contour-text">—</p>
+                    </div>
+                </div>
+                <div class="result-grid-3">
+                    <div class="result-card makeup-card" id="mc-eye">
+                        <div class="mc-emoji">👁</div>
+                        <h3>Eye Makeup</h3>
+                        <p id="mc-eye-text">—</p>
+                    </div>
+                    <div class="result-card makeup-card" id="mc-lip">
+                        <div class="mc-emoji">💋</div>
+                        <h3>Lip Color</h3>
+                        <p id="mc-lip-text">—</p>
+                    </div>
+                    <div class="result-card makeup-card" id="mc-brow">
+                        <div class="mc-emoji">〜</div>
+                        <h3>Eyebrows</h3>
+                        <p id="mc-brow-text">—</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <h3 class="rc-title">✦ Signature Makeup Looks</h3>
+                    <div class="looks-grid" id="looks-grid"></div>
+                </div>
+            </div>
+
+            <!-- Tips Tab -->
+            <div class="result-panel hidden" id="rtab-tips">
+                <div class="result-card">
+                    <h3 class="rc-title">💡 Pro Makeup Artist Tips For You</h3>
+                    <div class="tips-list" id="tips-list"></div>
+                </div>
+                <div class="result-grid-2">
+                    <div class="result-card">
+                        <h3 class="rc-title">🌟 Your Best Features to Highlight</h3>
+                        <div class="feature-list" id="highlight-list"></div>
+                    </div>
+                    <div class="result-card">
+                        <h3 class="rc-title">📅 Occasion-Based Looks</h3>
+                        <div class="occasion-list" id="occasion-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Makeup Style Tab -->
+            <div class="result-panel hidden" id="rtab-style">
+                <div class="result-card" id="style-hero-card">
+                    <div class="style-badge-row" id="style-badge-row"></div>
+                    <h3 class="rc-title" id="style-title">✦ Your Signature Makeup Style</h3>
+                    <p class="rc-body" id="style-desc">—</p>
+                </div>
+                <div class="result-grid-2" id="style-grid"></div>
+                <div class="result-card">
+                    <h3 class="rc-title">🎯 Why This Style Suits You</h3>
+                    <div class="feature-list" id="style-why-list"></div>
+                </div>
+                <div class="result-card">
+                    <h3 class="rc-title">🛍️ Key Products to Build Your Look</h3>
+                    <div class="style-products" id="style-products"></div>
+                </div>
+            </div>
+
+            <!-- Redo Analysis -->
+            <div class="redo-wrap">
+                <button class="btn-primary" onclick="resetAnalysis()">✦ Analyze Again</button>
+                <button class="btn-outline" onclick="window.print()">🖨 Save Results</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CONTACT SECTION ── -->
+    <section id="contact">
+        <div class="section-inner">
+            <div class="section-label">Get in Touch</div>
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Have questions about your analysis? Reach out to our beauty expert.</p>
+            <div class="contact-card">
+                <div class="contact-avatar">👩‍💼</div>
+                <div class="contact-info">
+                    <div class="contact-name">Bhumi Kumari</div>
+                    <div class="contact-title">Founder & Beauty Analyst · FaceCheck AI</div>
+                    <div class="contact-details">
+                        <a class="contact-link" href="tel:+919801024759">
+                            <span class="contact-icon">📞</span>
+                            <span>+91 98010 24759</span>
+                        </a>
+                        <a class="contact-link" href="https://wa.me/919801024759" target="_blank">
+                            <span class="contact-icon">💬</span>
+                            <span>Chat on WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer id="footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">FaceCheck <em>AI</em></span>
+            </div>
+            <p class="footer-note">All analysis is performed locally in your browser. No images are ever uploaded or
+                stored.</p>
+            <div class="footer-contact-mini">
+                <span>Owner: <strong>Bhumi Kumari</strong></span>
+                <span class="footer-dot">·</span>
+                <a href="tel:+919801024759" class="footer-phone">📞 98010 24759</a>
+            </div>
+            <p class="footer-copy">© 2026 FaceCheck AI · Built with ♥ for beauty enthusiasts</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
